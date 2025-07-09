@@ -215,13 +215,14 @@ footer {
     order: 1;
   }
 
-  #form-rotina input {
-    width: 100%;
-    margin-bottom: 10px;
+  #form-rotina {
+    flex-direction: column;
   }
 
+  #form-rotina input,
   #form-rotina button {
     width: 100%;
+    margin: 0;
   }
 
   #rotinas-pendentes li {
