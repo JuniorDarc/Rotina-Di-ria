@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rotina Diária</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="layout">
+     
+    <!-- HISTÓRICO -->
+    <div id="historico">
+      <h2>Histórico</h2>
+      <ul id="lista-historico"></ul>
+    </div>
+
+    <!-- Área de rotinas -->
+    <div id="container">
+      <header>
+        <h1>Minhas Rotinas Diárias</h1>
+        <p id="data-atual"></p>
+      </header>
+
+      <main>
+      
+        <!-- Formulário de adicionar rotina -->
+        <form id="form-rotina">
+          <input type="text" id="input-rotina" placeholder="Digite sua rotina..." required />
+          <button type="submit">Adicionar</button>
+        </form>
+
+        <!-- Lista de rotinas pendentes -->
+        <section id="rotinas-pendentes">
+          <h2>Rotinas Pendentes</h2>
+          <ul id="lista-pendentes"></ul>
+        </section>
+
+        <section id="historico-concluidas">
+         <h2>Histórico de Concluídas</h2>
+         <ul id="lista-historico"></ul>
+        </section>
+        <!-- Botão para resetar o dia -->
+        <button id="resetar-dia">Resetar Dia</button>
+      </main>
+
+      <footer>
+        <p>Organize seu dia, uma rotina por vez.</p>
+      </footer>
+    </div>
+
+    <!-- Área de perfil -->
+    <div id="perfil">
+      <h2>Perfil</h2>
+      <p>Rotinas feitas hoje: <span id="rotinas-feitas">0</span>/5</p>
+      <p>Pontos disponíveis: <span id="pontos-disponiveis">0</span></p>
+
+      <div id="atributos">
+        <div class="atributo">
+          <span>Força:</span>
+          <span id="forca-valor">0</span>
+          <button data-atributo="forca">+</button>
+        </div>
+        <div class="atributo">
+          <span>Inteligência:</span>
+          <span id="inteligencia-valor">0</span>
+          <button data-atributo="inteligencia">+</button>
+        </div>
+        <div class="atributo">
+          <span>Resistencia:</span>
+          <span id="resistencia-valor">0</span>
+          <button data-atributo="destreza">+</button>
+        </div>
+        <div class="atributo">
+          <span>Foco:</span>
+          <span id="foco-valor">0</span>
+          <button data-atributo="foco">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tema escuro geral */
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: #121212;
+  color: #f5f5f5;
+  padding: 20px;
+}
+/* HISTÓRICO */
+#historico {
+  flex: 1;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+#historico h2 {
+  margin-bottom: 10px;
+}
+
+#historico ul {
+  list-style: none;
+  padding: 0;
+}
+
+#historico li {
+  margin-bottom: 8px;
+  background-color: #2a2a2a;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+
+/* Layout em duas colunas */
+#layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+/* Container principal de rotinas */
+#container {
+  flex: 2;
+  background-color: #1a1a1a;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Perfil lateral */
+#perfil {
+  flex: 1;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 12px;
+  color: #f0f0f0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Cabeçalho */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 20px 0 10px;
+  font-size: 1.3em;
+  color: #ddd;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+}
+
+button[type="submit"],
+#resetar-dia {
+  padding: 10px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#resetar-dia {
+  background-color: #dc2626;
+  margin-bottom: 20px;
+}
+
+#resetar-dia:hover {
+  background-color: #b91c1c;
+}
+
+/* Seções */
+section {
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li span {
+  flex: 1;
+  margin-right: 10px;
+  word-break: break-word;
+}
+
+li button {
+  background-color: #4b5563;
+  margin-left: 5px;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+li button:hover {
+  background-color: #6b7280;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 30px;
+  color: #888;
+}
+
+/* Perfil - atributos */
+#atributos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#atributos .atributo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#atributos .atributo span {
+  margin-bottom: 5px;
+}
+
+#atributos .atributo button {
+  align-self: flex-start;
+  background-color: #0984e3;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  #layout {
+    flex-direction: column;
+  }
+
+  #perfil {
+    order: -1;
+  }
+
+  #container {
+    order: 0;
+  }
+
+  #historico {
+    order: 1;
+  }
+
+  #form-rotina input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #form-rotina button {
+    width: 100%;
+  }
+
+  #rotinas-pendentes li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #rotinas-pendentes button {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
