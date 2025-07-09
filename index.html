@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rotina Diária</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="/Rotina-Di-ria/manifest.json">
+<meta name="theme-color" content="#00b894">
 </head>
 <body>
   <div id="layout">
@@ -81,5 +83,15 @@
   </div>
 
   <script src="js/script.js"></script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/Rotina-Di-ria/service-worker.js')
+        .then(reg => console.log('Service Worker registrado:', reg))
+        .catch(err => console.error('Erro ao registrar Service Worker:', err));
+    });
+  }
+</script>
 </body>
 </html>
