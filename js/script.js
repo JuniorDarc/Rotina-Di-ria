@@ -179,7 +179,6 @@ botaoResetar.addEventListener('click', () => {
     rotinas = [];
     rotinasFeitasHoje = 0;
     pontosDisponiveis = 0;
-    for (let key in atributos) atributos[key] = 0;
     salvarRotinas();
     atualizarPerfil();
     atualizarListas();
