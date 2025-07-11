@@ -1,17 +1,17 @@
-const CACHE_NAME = 'rotina-cache-v1';
-const urlsToCache = [
-  '/Rotina-Di-ria/',
-  '/Rotina-Di-ria/index.html',
-  '/Rotina-Di-ria/style.css',
-  '/Rotina-Di-ria/js/script.js',
-  '/Rotina-Di-ria/manifest.json',
-  '/Rotina-Di-ria/icons/icon-192.png',
-  '/Rotina-Di-ria/icons/icon-512.png'
+const cacheName = 'motoboy-cash-v1';
+const filesToCache = [
+  '/Motoboy-Cash/',
+  '/Motoboy-Cash/index.html',
+  '/Motoboy-Cash/css/style.css',
+  '/Motoboy-Cash/js/script.js',
+  '/Motoboy-Cash/icon-192.png',
+  '/Motoboy-Cash/icon-512.png'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(cacheName)
+      .then(cache => cache.addAll(filesToCache))
   );
 });
 
