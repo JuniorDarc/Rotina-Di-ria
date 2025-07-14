@@ -6,6 +6,18 @@ const dados = {
   "99": []
 };
 
+
+function CalcularKM()
+{
+  let valor1 = parseFloat(document.getElementById('numero1').value) || 0;
+  let valor2 = parseFloat(document.getElementById('numero2').value) || 0;
+  let valor3 = parseFloat(document.getElementById('numero3').value) || 1;
+
+  let resultadoParcial = valor2 - valor1;
+  let resultado = resultadoParcial / valor3;
+
+  document.getElementById('Resultado').textContent = resultado.toFixed(2) + String('km/l');
+}
 apps.forEach(app => {
   const salvo = localStorage.getItem("dados_" + app);
   if (salvo) dados[app] = JSON.parse(salvo);
@@ -160,9 +172,6 @@ function editarDia(app, index) {
 
   container.appendChild(div);
 }
-
-
-
 
 function salvarEdicaoDireta(botao, app, index) {
   const diaDiv = botao.parentElement;
