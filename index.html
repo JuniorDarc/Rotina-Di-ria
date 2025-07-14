@@ -53,6 +53,17 @@
           <button onclick="adicionarDia('99')">Adicionar Dia</button>
           <div id="resumo99" class="resumo"></div>
         </section>
+      </div>  
+
+      <div>
+        <section id="Calculo">
+        <h2 id="titulo_Calculo">Calculo de KM/Litro</h2>
+        <input type="number" id="numero1" placeholder="Quilometragem Inicial">
+        <input type="number" id="numero2" placeholder="Quilometragem final">
+        <input type="number" id="numero3" placeholder="Quantidade de Gasolina">
+        <h3>Resultado: <span id="Resultado">0</span></h3>
+         <button onclick="CalcularKM()">Calcular KM</button>
+         </section>
       </div>
 
       <div class="consolidado-wrapper">
@@ -61,6 +72,7 @@
         <div id="resumoGeral" class="resumo"></div>
         <canvas id="graficoGastos" width="400" height="400"></canvas>
       </div>
+
     </div>
 
     <div id="salvos" class="tab-content" style="display: none;">
