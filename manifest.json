@@ -1,12 +1,21 @@
 {
-  "name": "Motoboy Cash",
-  "short_name": "Motoboy",
-  "start_url": "/Motoboy-Cash/index.html",
+  "name": "Rotina Diária",
+  "short_name": "Rotina",
+  "start_url": "/Rotina-Di-ria/",
   "display": "standalone",
-  "background_color": "#f0f2f5",
-  "theme_color": "#4a90e2",
+  "background_color": "#121212",
+  "theme_color": "#00b894",
+  "description": "Organize e conclua suas rotinas diárias!",
   "icons": [
-    { "src": "/Motoboy-Cash/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/Motoboy-Cash/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "/Rotina-Di-ria/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/Rotina-Di-ria/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

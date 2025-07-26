@@ -2,85 +2,111 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Controle de Ganhos Uber/InDrive/99</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rotina Diária</title>
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#4a90e2" />
+  <link rel="manifest" href="/Rotina-Di-ria/manifest.json">
+<meta name="theme-color" content="#00b894">
 </head>
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(() => console.log('Service Worker registrado'))
-      .catch(err => console.error('Erro SW:', err));
-  }
-</script>
-
 <body>
-  <div class="container">
-    <h1>Motoboy Cash</h1>
-
-    <div class="tabs">
-      <button class="tab-button active" onclick="abrirAba('entrada', event)">Registrar Dias</button>
-      <button class="tab-button" onclick="abrirAba('salvos', event)">Dias Salvos</button>
+  <div id="layout">
+     
+    <!-- HISTÓRICO -->
+    <div id="historico">
+      <h2>Histórico</h2>
+      <ul id="lista-historico"></ul>
     </div>
 
-    <div id="entrada" class="tab-content" style="display: block;">
-      <div class="app-grid">
-        <!-- Uber -->
-        <section id="uber">
-          <h2>Uber</h2>
-          <div id="formDiasUber"></div>
-          <button onclick="adicionarDia('uber')">Adicionar Dia</button>
-          <div id="resumoUber" class="resumo"></div>
+    <!-- Área de rotinas -->
+    <div id="container">
+      <header>
+        <h1>Minhas Rotinas Diárias</h1>
+        <p id="data-atual"></p>
+      </header>
+
+      <main>
+      
+        <!-- Formulário de adicionar rotina -->
+<form id="form-rotina">
+  <input type="text" id="input-rotina" placeholder="Digite sua rotina..." required />
+
+  <!-- Selecionar atributo relacionado -->
+  <label for="atributo-selecionado">Atributo:</label>
+  <select id="atributo-selecionado" required>
+    <option value="">-- Escolha um atributo --</option>
+    <option value="forca">Força</option>
+    <option value="inteligencia">Inteligência</option>
+    <option value="resistencia">Resistência</option>
+    <option value="foco">Foco</option>
+  </select>
+
+  <!-- Selecionar tempo limite -->
+  <label for="tempo-limite">Tempo (minutos):</label>
+  <input type="number" id="tempo-limite" min="5" max="60" step="5" value="25" required />
+
+  <button type="submit">Adicionar</button>
+</form>
+
+
+        <!-- Lista de rotinas pendentes -->
+        <section id="rotinas-pendentes">
+          <h2>Rotinas Pendentes</h2>
+          <ul id="lista-pendentes"></ul>
         </section>
 
-        <!-- InDrive -->
-        <section id="indrive">
-          <h2>InDrive</h2>
-          <div id="formDiasInDrive"></div>
-          <button onclick="adicionarDia('indrive')">Adicionar Dia</button>
-          <div id="resumoInDrive" class="resumo"></div>
+        <section id="historico-concluidas">
+         <h2>Histórico de Concluídas</h2>
+         <ul id="lista-historico"></ul>
         </section>
 
-        <!-- 99 -->
-        <section id="noventaNove">
-          <h2>99</h2>
-          <div id="formDias99"></div>
-          <button onclick="adicionarDia('99')">Adicionar Dia</button>
-          <div id="resumo99" class="resumo"></div>
-        </section>
-      </div>  
+      </main>
 
-      <div>
-        <section id="Calculo">
-        <h2 id="titulo_Calculo">Calculo de KM/Litro</h2>
-        <input type="number" id="numero1" placeholder="Quilometragem Inicial">
-        <input type="number" id="numero2" placeholder="Quilometragem final">
-        <input type="number" id="numero3" placeholder="Quantidade de Gasolina">
-        <h3>Resultado: <span id="Resultado">0</span></h3>
-         <button onclick="CalcularKM()">Calcular KM</button>
-         </section>
-      </div>
-
-      <div class="consolidado-wrapper">
-        <h2>Consolidado Geral</h2>
-        <button onclick="calcularConsolidado()">Calcular Consolidado</button>
-        <div id="resumoGeral" class="resumo"></div>
-        <canvas id="graficoGastos" width="400" height="400"></canvas>
-      </div>
-
+      <footer>
+        <p>Organize seu dia, uma rotina por vez.</p>
+      </footer>
     </div>
 
-    <div id="salvos" class="tab-content" style="display: none;">
-      <h2>Dias Salvos</h2>
-      <div id="listaDiasSalvos" class="salvos-container"></div>
+    <!-- Área de perfil -->
+    <div id="perfil">
+      <h2>Perfil</h2>
+      <p>Rotinas feitas hoje: <span id="rotinas-feitas">0</span>/5</p>
+      <p>Pontos disponíveis: <span id="pontos-disponiveis">0</span></p>
+
+      <div id="atributos">
+        <div class="atributo">
+          <span>Força:</span>
+          <span id="forca-valor">0</span>
+          <button data-atributo="forca">+</button>
+        </div>
+        <div class="atributo">
+          <span>Inteligência:</span>
+          <span id="inteligencia-valor">0</span>
+          <button data-atributo="inteligencia">+</button>
+        </div>
+        <div class="atributo">
+          <span>Resistencia:</span>
+          <span id="resistencia-valor">0</span>
+          <button data-atributo="resistencia">+</button>
+        </div>
+        <div class="atributo">
+          <span>Foco:</span>
+          <span id="foco-valor">0</span>
+          <button data-atributo="foco">+</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="js/script.js"></script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/Rotina-Di-ria/service-worker.js')
+        .then(reg => console.log('Service Worker registrado:', reg))
+        .catch(err => console.error('Erro ao registrar Service Worker:', err));
+    });
+  }
+</script>
 </body>
 </html>
