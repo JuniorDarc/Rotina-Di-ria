@@ -1,179 +1,141 @@
-//Relogio e Hitorico
-const listaHistorico = document.getElementById('lista-historico');
-const hoje = new Date().toLocaleDateString('pt-BR');
-document.getElementById('data-atual').textContent = `Data de hoje: ${hoje}`;
-
-// Elementos principais
-const form = document.getElementById('form-rotina');
-const input = document.getElementById('input-rotina');
-const listaPendentes = document.getElementById('lista-pendentes');
-const botaoResetar = document.getElementById('resetar-dia');
-
-// Perfil
-const rotinasFeitasSpan = document.getElementById('rotinas-feitas');
-const pontosDisponiveisSpan = document.getElementById('pontos-disponiveis');
-const botoesAtributos = document.querySelectorAll('#atributos button');
-
-// Estado
-let rotinas = JSON.parse(localStorage.getItem('rotinas')) || [];
-let rotinasFeitasHoje = 0;
-let pontosDisponiveis = 0;
-const atributos = {
-  forca: 0,
-  inteligencia: 0,
-  resistencia: 0,
-  foco: 0
+//Rotina/Perfil
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let points = parseInt(localStorage.getItem('points')) || 0;
+let attributes = JSON.parse(localStorage.getItem('attributes')) || {
+  Força: 0,
+  Inteligência: 0,
+  Resistência: 0,
+  Foco: 0
 };
+//Nivel/xp
+let xp = parseInt(localStorage.getItem('xp')) || 0;
+let level = parseInt(localStorage.getItem('level')) || 1;
+let xpToNextLevel = parseInt(localStorage.getItem('xpToNextLevel')) || 100;
 
-// Carrega perfil salvo
-function carregarPerfil() {
-  const data = JSON.parse(localStorage.getItem('perfil'));
-  if (data) {
-    rotinasFeitasHoje = data.rotinasFeitasHoje || 0;
-    pontosDisponiveis = data.pontosDisponiveis || 0;
-    Object.assign(atributos, data.atributos || {});
+//Funcões Rotina/Perfil
+function save() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  localStorage.setItem('points', points);
+  localStorage.setItem('attributes', JSON.stringify(attributes));
+}
+
+function updateUI() {
+  const taskList = document.getElementById('taskList');
+  taskList.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span>${task.text}</span>
+      <button onclick="completeTask(${index})">✔️</button>
+    `;
+    taskList.appendChild(li);
+  });
+
+  document.getElementById('points').innerText = points;
+
+  const attrList = document.getElementById('attributeList');
+  attrList.innerHTML = '';
+  for (let attr in attributes) {
+    const div = document.createElement('div');
+    div.className = 'attribute';
+    div.innerHTML = `
+      <strong>${attr}</strong>: ${attributes[attr]} 
+      <button onclick="increaseAttr('${attr}')">+1</button>
+    `;
+    attrList.appendChild(div);
   }
 }
 
-// Salva perfil
-function salvarPerfil() {
-  localStorage.setItem('perfil', JSON.stringify({
-    rotinasFeitasHoje,
-    pontosDisponiveis,
-    atributos
-  }));
-}
-
-// Atualiza área do perfil
-function atualizarPerfil() {
-  rotinasFeitasSpan.textContent = rotinasFeitasHoje;
-  pontosDisponiveisSpan.textContent = pontosDisponiveis;
-  for (let key in atributos) {
-    const span = document.getElementById(`${key}-valor`);
-    if (span) span.textContent = atributos[key];
+function addTask() {
+  const input = document.getElementById('taskInput');
+  const text = input.value.trim();
+  if (text) {
+    tasks.push({ text });
+    input.value = '';
+    save();
+    updateUI();
   }
-  botoesAtributos.forEach(btn => {
-    btn.disabled = pontosDisponiveis <= 0;
-  });
 }
 
-// Evento para distribuir pontos
-botoesAtributos.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const atributo = btn.dataset.atributo;
-    if (pontosDisponiveis > 0) {
-      atributos[atributo]++;
-      pontosDisponiveis--;
-      salvarPerfil();
-      atualizarPerfil();
-    }
-  });
+function completeTask(index) {
+  tasks.splice(index, 1);
+  points += 1;
+  save();
+  updateUI();
+  giveXpOnTask();
+}
+
+function increaseAttr(attr) {
+  if (points > 0) {
+    attributes[attr]++;
+    points--;
+    save();
+    updateUI();
+  }
+}
+
+function toggleEditName() {
+  const form = document.getElementById('editNameForm');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+
+  document.getElementById('nameInput').value =
+    localStorage.getItem('username') || 'Junior Silva';
+}
+
+function showTab(tabId) {
+  document.getElementById('rotina').style.display = 'none';
+  document.getElementById('perfil').style.display = 'none';
+  document.getElementById(tabId).style.display = 'block';
+}
+
+function saveName() {
+  const newName = document.getElementById('nameInput').value.trim();
+  if (newName) {
+    localStorage.setItem('username', newName);
+    document.getElementById('userName').innerText = newName;
+    document.getElementById('perfilNomeExibido').innerText = newName;
+    document.getElementById('nameInput').value = '';
+  }
+}
+
+// Ao carregar a página
+window.addEventListener('DOMContentLoaded', () => {
+  const savedName = localStorage.getItem('username');
+  if (savedName) {
+    document.getElementById('userName').innerText = savedName;
+    document.getElementById('perfilNomeExibido').innerText = savedName;
+  }
+
+  updateUI(); // mantém o funcionamento da aba rotina
+    updateXpUI(); // <- ADICIONE ISSO AQUI!
 });
 
-// Salvar rotinas
-function salvarRotinas() {
-  localStorage.setItem('rotinas', JSON.stringify(rotinas));
-  salvarPerfil();
+//Funcões Nivel/Xp
+function updateXpUI() {
+  document.getElementById('userLevel').innerText = level;
+  document.getElementById('currentXp').innerText = xp;
+  document.getElementById('xpToNext').innerText = xpToNextLevel;
+  const percent = Math.min((xp / xpToNextLevel) * 100, 100);
+  document.getElementById('xpBar').style.width = percent + '%';
 }
+function giveXpOnTask() {
+  const xpGain = Math.floor(Math.random() * 21) + 5; // 5 a 25 XP aleatórios
+  xp += xpGain;
 
-// Cria visualmente uma rotina
-function criarItem(rotina) {
-  if (rotina.concluida) return; // Tarefa concluída não aparece
-
-  const li = document.createElement('li');
-  li.dataset.id = rotina.id;
-
-  const span = document.createElement('span');
-  span.textContent = rotina.texto;
-
-  const btnConcluir = document.createElement('button');
-  btnConcluir.textContent = 'Concluir';
-
-  btnConcluir.addEventListener('click', () => {
-    if (rotinasFeitasHoje >= 5) {
-      alert('Você só pode concluir 5 rotinas por dia.');
-      return;
-    }
-
-    rotina.concluida = true;
-    rotinasFeitasHoje++;
-    pontosDisponiveis++;
-
-    salvarRotinas();
-    atualizarPerfil();
-    atualizarListas(); // remove da lista visual
-  });
-
-  const btnDescartar = document.createElement('button');
-  btnDescartar.textContent = 'Descartar';
-
-  btnDescartar.addEventListener('click', () => {
-    // Se ela ainda não foi concluída, pode remover direto
-    rotinas = rotinas.filter(r => r.id !== rotina.id);
-    salvarRotinas();
-    atualizarPerfil();
-    atualizarListas();
-  });
-
-  li.appendChild(span);
-  li.appendChild(btnConcluir);
-  li.appendChild(btnDescartar);
-  listaPendentes.appendChild(li);
-}
-
-// Atualiza a lista de rotinas
-function atualizarListas() {
-  listaPendentes.innerHTML = '';
-  listaHistorico.innerHTML = '';
-
-  rotinas.forEach(rotina => {
-    if (!rotina.concluida) {
-      criarItem(rotina);
-    } else {
-      criarHistorico(rotina);
-    }
-  });
-}
-
-function criarHistorico(rotina) {
-  const li = document.createElement('li');
-  li.textContent = `✔ ${rotina.texto}`;
-  listaHistorico.appendChild(li);
-}
-
-function verificarDataEAtualizar() {
-  const ultimaData = localStorage.getItem('ultimaData');
-  if (ultimaData !== hoje) {
-    // Resetar tudo
-    rotinas = [];
-    rotinasFeitasHoje = 0;
-    pontosDisponiveis = 0;
-    for (let key in atributos) atributos[key] = 0;
-
-    localStorage.setItem('ultimaData', hoje);
-    salvarRotinas();
+  if (xp >= xpToNextLevel) {
+    xp -= xpToNextLevel;
+    level++;
+    xpToNextLevel = Math.floor(xpToNextLevel * 1.2); // aumenta dificuldade
+    unlockRewards(level);
   }
+
+  localStorage.setItem('xp', xp);
+  localStorage.setItem('level', level);
+  localStorage.setItem('xpToNextLevel', xpToNextLevel);
+  updateXpUI();
 }
 
-// Evento de envio de rotina
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const texto = input.value.trim();
-  if (texto === '') return;
 
-  const novaRotina = {
-    id: Date.now(),
-    texto,
-    concluida: false
-  };
+updateUI();
 
-  rotinas.push(novaRotina);
-  input.value = '';
-  salvarRotinas();
-  atualizarListas();
-});
-// Inicialização
-verificarDataEAtualizar();
-carregarPerfil();
-atualizarPerfil();
-atualizarListas();
+

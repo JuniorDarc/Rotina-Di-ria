@@ -9,92 +9,50 @@
 <meta name="theme-color" content="#00b894">
 </head>
 <body>
-  <div id="layout">
-     
-    <!-- HISTÓRICO -->
-    <div id="historico">
-      <h2>Histórico</h2>
-      <ul id="lista-historico"></ul>
+  <!-- Cabeçalho -->
+<div class="header">
+    <div class="right">
+    <span id="userName" class="user-name">Usuário</span>
+  </div>
+  <div class="center tabs">
+    <button onclick="showTab('rotina')">Rotina</button>
+    <button onclick="showTab('perfil')">Perfil</button>
+  </div>
+  <div class="left">
+    <span class="menu-icon">⋮</span>
+  </div>
+</div>
+
+  <!-- Conteúdo: ROTINA -->
+  <div id="rotina" class="tab-content">
+    <h1 class="RotinaTxt">📋 Minhas Rotinas</h1>
+    <h2 class="RotinaTxt" >⭐ Pontos: <span id="points">0</span></h2>
+    <input type="text" id="taskInput" placeholder="Nova tarefa..." />
+    <button onclick="addTask()">Adicionar</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <!-- Conteúdo: PERFIL -->
+  <div id="perfil" class="tab-content" style="display: none;">
+    <h2>👤 Meu Perfil</h2>
+    <p>Nome atual: <strong id="perfilNomeExibido">Junior Silva</strong></p>
+    <input type="text" id="nameInput" placeholder="Novo nome" />
+    <button onclick="saveName()">Salvar Nome</button>
+
+     <!-- Atributos -->
+    <div class="attributes">
+      <h2>Distribuir Pontos</h2>
+      <div id="attributeList"></div>
     </div>
 
-    <!-- Área de rotinas -->
-    <div id="container">
-      <header>
-        <h1>Minhas Rotinas Diárias</h1>
-        <p id="data-atual"></p>
-      </header>
-
-      <main>
-      
-        <!-- Formulário de adicionar rotina -->
-<form id="form-rotina">
-  <input type="text" id="input-rotina" placeholder="Digite sua rotina..." required />
-
-  <!-- Selecionar atributo relacionado -->
-  <label for="atributo-selecionado">Atributo:</label>
-  <select id="atributo-selecionado" required>
-    <option value="">-- Escolha um atributo --</option>
-    <option value="forca">Força</option>
-    <option value="inteligencia">Inteligência</option>
-    <option value="resistencia">Resistência</option>
-    <option value="foco">Foco</option>
-  </select>
-
-  <!-- Selecionar tempo limite -->
-  <label for="tempo-limite">Tempo (minutos):</label>
-  <input type="number" id="tempo-limite" min="5" max="60" step="5" value="25" required />
-
-  <button type="submit">Adicionar</button>
-</form>
-
-
-        <!-- Lista de rotinas pendentes -->
-        <section id="rotinas-pendentes">
-          <h2>Rotinas Pendentes</h2>
-          <ul id="lista-pendentes"></ul>
-        </section>
-
-        <section id="historico-concluidas">
-         <h2>Histórico de Concluídas</h2>
-         <ul id="lista-historico"></ul>
-        </section>
-
-      </main>
-
-      <footer>
-        <p>Organize seu dia, uma rotina por vez.</p>
-      </footer>
-    </div>
-
-    <!-- Área de perfil -->
-    <div id="perfil">
-      <h2>Perfil</h2>
-      <p>Rotinas feitas hoje: <span id="rotinas-feitas">0</span>/5</p>
-      <p>Pontos disponíveis: <span id="pontos-disponiveis">0</span></p>
-
-      <div id="atributos">
-        <div class="atributo">
-          <span>Força:</span>
-          <span id="forca-valor">0</span>
-          <button data-atributo="forca">+</button>
-        </div>
-        <div class="atributo">
-          <span>Inteligência:</span>
-          <span id="inteligencia-valor">0</span>
-          <button data-atributo="inteligencia">+</button>
-        </div>
-        <div class="atributo">
-          <span>Resistencia:</span>
-          <span id="resistencia-valor">0</span>
-          <button data-atributo="resistencia">+</button>
-        </div>
-        <div class="atributo">
-          <span>Foco:</span>
-          <span id="foco-valor">0</span>
-          <button data-atributo="foco">+</button>
-        </div>
+    <!-- Nivel/XP -->
+     <div id="levelInfo">
+      <p>Nível: <span id="userLevel">1</span></p>
+      <div class="xp-bar-container">
+        <div id="xpBar" class="xp-bar" style="width: 0%"></div>
       </div>
-    </div>
+      <p>XP: <span id="currentXp">0</span> / <span id="xpToNext">100</span></p>
+     </div>
   </div>
 
   <script src="js/script.js"></script>
@@ -109,4 +67,5 @@
   }
 </script>
 </body>
+
 </html>
