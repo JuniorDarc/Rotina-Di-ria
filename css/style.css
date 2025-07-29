@@ -1,5 +1,3 @@
-
-
 @import url("https://fonts.googleapis.com/css2?family=Manufacturing+Consent&family=Rock+Salt&display=swap");
 
 body {
@@ -13,42 +11,55 @@ body {
 }
 
 @keyframes lofiShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
+/* ==== HEADER E ELEMENTOS ==== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1f1f1f;
-  color: white;
-  padding: 12px 20px;
-  border-bottom: 1px solid #333;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-  position: sticky;
-  top: 0;
-  z-index: 999;
+  flex-wrap: wrap;
+  padding: 10px 15px;
+  background-color: #1a1a1a;
+  gap: 10px;
 }
-.menu-icon {
+
+.header .user-name {
+  font-weight: bold;
+  font-size: 25px;
+  font-family: "Manufacturing Consent", system-ui;
+}
+
+.header .tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.header .tabs button {
+  padding: 6px 14px;
+  font-size: 14px;
+  background-color: #343535;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.header .menu-icon {
   font-size: 24px;
   cursor: pointer;
 }
+
 .left, .center, .right {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.user-name {
-  font-family: "Manufacturing Consent", system-ui;
-  font-size: 25px;
-}
+
+/* ==== GERAL ==== */
 .container {
   max-width: 600px;
   margin: 40px auto;
@@ -57,13 +68,16 @@ body {
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
 }
+
 h1, h2 {
   margin-top: 0;
   color: #ffffff;
 }
-.RotinaTxt{
+
+.RotinaTxt {
   text-align: center;
 }
+
 input[type="text"] {
   width: 70%;
   padding: 10px;
@@ -73,6 +87,7 @@ input[type="text"] {
   background: #2c2c2c;
   color: #fff;
 }
+
 button {
   padding: 10px 14px;
   font-size: 16px;
@@ -83,13 +98,16 @@ button {
   border-radius: 6px;
   transition: background 0.3s;
 }
+
 button:hover {
   background: #45a049;
 }
+
 ul {
   list-style: none;
   padding-left: 0;
 }
+
 li {
   display: flex;
   justify-content: space-between;
@@ -98,15 +116,20 @@ li {
   background: #2a2a2a;
   border-radius: 6px;
 }
+
 li span {
   flex-grow: 1;
 }
+
 .points, .attributes {
   margin-top: 30px;
 }
+
 .attribute {
   margin-bottom: 15px;
 }
+
+/* ==== FORMULÁRIOS ==== */
 .profile-form {
   background: #1e1e1e;
   padding: 16px;
@@ -117,6 +140,7 @@ li span {
   flex-direction: column;
   gap: 10px;
 }
+
 .profile-form input {
   padding: 10px;
   font-size: 16px;
@@ -125,6 +149,7 @@ li span {
   background: #2c2c2c;
   color: #fff;
 }
+
 .profile-form button {
   padding: 10px;
   font-size: 16px;
@@ -134,26 +159,16 @@ li span {
   color: white;
   cursor: pointer;
 }
+
+/* ==== TABS ==== */
 .tabs {
   display: flex;
-  justify-content: center; /* centraliza */
-  gap: 10px;               /* espaçamento entre botões */
-  margin-bottom: 15px;
-  flex-wrap: wrap;         /* quebra para baixo se não couber na tela */
-}
-.task-input-group {
-  display: flex;
-  gap: 10px; /* separação entre input e botão */
-  margin-bottom: 16px;
-  flex-wrap: wrap; /* para caber bem em celular */
-}
-
-.name-input-group {
-  display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 15px;
   flex-wrap: wrap;
 }
+
 .tabs button {
   padding: 10px 20px;
   font-size: 16px;
@@ -168,6 +183,7 @@ li span {
 .tabs button:hover {
   background-color: #0056b3;
 }
+
 .tab-content {
   max-width: 600px;
   margin: 20px auto;
@@ -176,6 +192,7 @@ li span {
   border-radius: 10px;
 }
 
+/* ==== XP BAR ==== */
 .xp-bar-container {
   width: 100%;
   height: 16px;
@@ -184,31 +201,25 @@ li span {
   margin: 6px 0;
   overflow: hidden;
 }
+
 .xp-bar {
   height: 100%;
   background: linear-gradient(to right, #00ccff, #0066ff);
   width: 0%;
   transition: width 0.5s ease;
 }
-@media (max-width: 768px) {
-  .header {
-    align-items: flex-start;
-    padding: 10px;
-  }
 
-  .header {
+/* ==== GRUPOS DE INPUTS ==== */
+.task-input-group,
+.name-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
-  .left, .center, .right {
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  .user-name {
-    font-size: 20px;
-  }
-
+/* ==== RESPONSIVO ==== */
+@media (max-width: 768px) {
   .container,
   .tab-content,
   .profile-form {
@@ -218,23 +229,20 @@ li span {
   }
 
   input[type="text"], 
-  .profile-form input,
-  button, 
-  .profile-form button {
+  .profile-form input {
     width: 100%;
     font-size: 1rem;
   }
 
-  .tabs {
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 10px;
+  .task-input-group,
+  .name-input-group {
+    flex-direction: column;
+    gap: 12px;
   }
 
   .tabs button {
     flex: 1 1 45%;
     text-align: center;
-    padding: 10px;
     font-size: 0.9rem;
   }
 
@@ -242,14 +250,6 @@ li span {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-  }
-
-  li span {
-    width: 100%;
-  }
-
-  .xp-bar-container {
-    height: 14px;
   }
 
   h1, h2 {
@@ -261,13 +261,18 @@ li span {
     font-size: 1rem;
     padding: 10px;
   }
+
+  /* ⚠️ NÃO MEXA NA STRUCTURA DO HEADER */
+  .header {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left, .center, .right {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 }
-
-
-
-
-
-
-
-
-
