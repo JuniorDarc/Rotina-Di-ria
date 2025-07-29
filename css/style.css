@@ -176,13 +176,11 @@ li span {
 }
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
     align-items: flex-start;
     padding: 10px;
   }
 
   .left, .center, .right {
-    flex-direction: column;
     align-items: flex-start;
     gap: 6px;
   }
