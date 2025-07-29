@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rotina-cache-v3'; // Mude a versão sempre que atualizar
+const CACHE_NAME = 'rotina-cache-v4'; // Mude a versão sempre que atualizar
 const urlsToCache = [
   '/Rotina-Di-ria/',
   '/Rotina-Di-ria/index.html',
