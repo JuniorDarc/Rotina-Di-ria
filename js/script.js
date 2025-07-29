@@ -135,6 +135,38 @@ function giveXpOnTask() {
   updateXpUI();
 }
 
+// Service Worker: atualização automática
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/Rotina-Di-ria/service-worker.js').then(registration => {
+    // Detecta nova versão
+    registration.addEventListener('updatefound', () => {
+      const newWorker = registration.installing;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          document.getElementById('updateBanner').style.display = 'block';
+        }
+      });
+    });
+  });
+
+  // Recarrega página quando novo SW assume o controle
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    window.location.reload();
+    refreshing = true;
+  });
+}
+
+function updateSite() {
+  navigator.serviceWorker.getRegistration().then(reg => {
+    if (reg && reg.waiting) {
+      reg.waiting.postMessage('SKIP_WAITING');
+    }
+  });
+}
+
+
 
 updateUI();
 
