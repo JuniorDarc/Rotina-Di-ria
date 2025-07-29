@@ -174,14 +174,14 @@ li span {
   font-size: 16px;
   border: none;
   border-radius: 8px;
-  background-color: #007bff;
+  background-color: #1e1e1f;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .tabs button:hover {
-  background-color: #0056b3;
+  background-color: #363636;
 }
 
 .tab-content {
