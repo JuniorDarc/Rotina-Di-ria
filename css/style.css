@@ -136,9 +136,23 @@ li span {
 }
 .tabs {
   display: flex;
+  flex-wrap: wrap; /* permite quebrar linha se necessário, mas mantém lado a lado */
   justify-content: center;
   gap: 10px;
   padding: 10px 0;
+}
+.task-input-group {
+  display: flex;
+  gap: 10px; /* separação entre input e botão */
+  margin-bottom: 16px;
+  flex-wrap: wrap; /* para caber bem em celular */
+}
+
+.name-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 .tabs button {
   background: #2c2c2c;
@@ -179,6 +193,10 @@ li span {
     align-items: flex-start;
     padding: 10px;
   }
+
+  .header {
+  flex-wrap: wrap;
+}
 
   .left, .center, .right {
     align-items: flex-start;

@@ -27,8 +27,11 @@
   <div id="rotina" class="tab-content">
     <h1 class="RotinaTxt">📋 Minhas Rotinas</h1>
     <h2 class="RotinaTxt" >⭐ Pontos: <span id="points">0</span></h2>
-    <input type="text" id="taskInput" placeholder="Nova tarefa..." />
+    <div class="task-input-group">
+     <input type="text" id="taskInput" placeholder="Nova tarefa..." />
     <button onclick="addTask()">Adicionar</button>
+    </div>
+    
     <ul id="taskList"></ul>
   </div>
 
@@ -36,8 +39,11 @@
   <div id="perfil" class="tab-content" style="display: none;">
     <h2>👤 Meu Perfil</h2>
     <p>Nome atual: <strong id="perfilNomeExibido"></strong></p>
-    <input type="text" id="nameInput" placeholder="Novo nome" />
+    <div class="name-input-group">
+     <input type="text" id="nameInput" placeholder="Novo nome" />
     <button onclick="saveName()">Salvar Nome</button>
+    </div>
+    
 
      <!-- Atributos -->
     <div class="attributes">
