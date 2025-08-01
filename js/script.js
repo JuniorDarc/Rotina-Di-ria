@@ -5,7 +5,9 @@ let attributes = JSON.parse(localStorage.getItem('attributes')) || {
   Força: 0,
   Inteligência: 0,
   Resistência: 0,
-  Foco: 0
+  Foco: 0,
+  Disciplina: 0,
+  Fé: 0
 };
 //Nivel/xp
 let xp = parseInt(localStorage.getItem('xp')) || 0;
@@ -27,6 +29,7 @@ function updateUI() {
     li.innerHTML = `
       <span>${task.text}</span>
       <button onclick="completeTask(${index})">✔️</button>
+      <button onclick="deleteTask(${index})">🗑</button>
     `;
     taskList.appendChild(li);
   });
@@ -40,9 +43,18 @@ function updateUI() {
     div.className = 'attribute';
     div.innerHTML = `
       <strong>${attr}</strong>: ${attributes[attr]} 
+      <br>
       <button onclick="increaseAttr('${attr}')">+1</button>
     `;
     attrList.appendChild(div);
+  }
+}
+
+function deleteTask(index) {
+  if (confirm("Deseja realmente deletar esta tarefa?")) {
+    tasks.splice(index, 1);
+    save();
+    updateUI();
   }
 }
 
@@ -85,8 +97,15 @@ function toggleEditName() {
 function showTab(tabId) {
   document.getElementById('rotina').style.display = 'none';
   document.getElementById('perfil').style.display = 'none';
+  document.getElementById('galeria').style.display = 'none';
   document.getElementById(tabId).style.display = 'block';
+
+  if (tabId === 'galeria') {
+    renderGallery(); // <-- CHAMA AQUI
+  }
+  
 }
+
 
 function saveName() {
   const newName = document.getElementById('nameInput').value.trim();
@@ -105,9 +124,14 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('userName').innerText = savedName;
     document.getElementById('perfilNomeExibido').innerText = savedName;
   }
+  const savedAvatar = localStorage.getItem('avatarSelecionado');
+      if (savedAvatar) {
+        document.getElementById('profileImage').src = savedAvatar;
+      }
 
   updateUI(); // mantém o funcionamento da aba rotina
     updateXpUI(); // <- ADICIONE ISSO AQUI!
+    updateHeaderBanner();
 });
 
 //Funcões Nivel/Xp
@@ -166,7 +190,138 @@ function updateSite() {
   });
 }
 
+//galeria 
 
+
+//avatar
+const avatars = [
+  { url: 'img/avatar1.png', requiredLevel: 1 },
+  { url: 'img/avatar2.png', requiredLevel: 3 },
+  { url: 'img/avatar3.png', requiredLevel: 5 },
+  { url: 'img/avatar4.png', requiredLevel: 7 },
+  { url: 'img/avatar5.png', requiredLevel: 9 },
+  { url: 'img/avatar6.png', requiredLevel: 10 },
+  { url: 'img/avatar7.png', requiredLevel: 12 },
+  { url: 'img/avatar8.png', requiredLevel: 14 },
+   { url: 'img/avatar9.png', requiredLevel: 16 }
+];
+
+function renderGallery() {
+  const avatarSection = document.getElementById('avatar-section');
+  const bannerSection = document.getElementById('banner-section');
+  const userLevel = parseInt(localStorage.getItem('level') || '1');
+
+  avatarSection.innerHTML = '<h3>Avatares</h3>';
+  bannerSection.innerHTML = '<h3>Banners</h3>';
+
+  // Avatares
+  avatars.forEach(avatar => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+
+    const img = document.createElement('img');
+    img.src = avatar.url;
+    img.alt = 'Avatar';
+    img.classList.add('avatar');
+
+    const label = document.createElement('div');
+    label.innerText = `Desbloqueia no nível ${avatar.requiredLevel}`;
+
+    div.appendChild(img);
+    div.appendChild(label);
+
+    if (userLevel >= avatar.requiredLevel) {
+      const btn = document.createElement('button');
+      btn.innerText = 'Usar como perfil';
+      btn.onclick = () => selecionarAvatar(avatar.url, avatar.requiredLevel);
+      div.appendChild(btn);
+    }
+    avatarSection.appendChild(div);
+  });
+
+  // Banners
+  banners.forEach(banner => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+
+    const img = document.createElement('img');
+    img.src = banner.src;
+    img.alt = 'Banner';
+    img.classList.add('banner-img');
+
+    const label = document.createElement('div');
+    label.innerText = `Desbloqueia no nível ${banner.requiredLevel}`;
+
+    div.appendChild(img);
+    div.appendChild(label);
+
+    if (userLevel >= banner.requiredLevel) {
+      const btn = document.createElement('button');
+      btn.innerText = 'Ativar banner';
+      btn.onclick = () => selecionarBanner(banner.src, banner.requiredLevel);
+      div.appendChild(btn);
+    }
+    bannerSection.appendChild(div);
+  });
+}
+
+function selecionarAvatar(src, nivelNecessario) {
+      const userLevel = parseInt(localStorage.getItem('level') || '1');
+      if (userLevel >= nivelNecessario) {
+        document.getElementById('profileImage').src = src;
+        localStorage.setItem('avatarSelecionado', src);
+        alert("Avatar alterado com sucesso!");
+      } else {
+        alert(`Você precisa estar no nível ${nivelNecessario} para usar este avatar.`);
+      }
+    }
++-
+    function limparLocalStorage() {
+  if (confirm("Tem certeza que deseja apagar todos os dados salvos? Essa ação não pode ser desfeita.")) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
+//banners
+const banners = [
+  { src: "img/banner1.png", requiredLevel: 1 },
+  { src: "img/banner2.png", requiredLevel: 3 },
+  { src: "img/banner3.png", requiredLevel: 5 },
+  { src: "img/banner4.png", requiredLevel: 6 },
+  { src: "img/banner5.png", requiredLevel: 7 },
+  { src: "img/banner6.png", requiredLevel: 9 },
+  { src: "img/banner7.png", requiredLevel: 10 },
+  { src: "img/banner8.png", requiredLevel: 12},
+  { src: "img/banner9.png", requiredLevel: 13},
+  { src: "img/banner10.png", requiredLevel: 14 },
+  { src: "img/banner11.png", requiredLevel: 15 },
+  { src: "img/banner12.png", requiredLevel: 17 }
+];
+
+function updateHeaderBanner() {
+  const header = document.querySelector('.header');
+  const selectedBanner = localStorage.getItem('selectedBanner');
+
+  if (selectedBanner) {
+    header.style.backgroundImage = `url('${selectedBanner}')`;
+    header.style.backgroundColor = ''; // remove cor sólida, se houver
+  } else {
+    header.style.backgroundImage = 'none';
+    header.style.backgroundColor = '#333'; // cinza escuro
+  }
+}
+
+function selecionarBanner(src, nivelNecessario) {
+  const userLevel = parseInt(localStorage.getItem('level')) || 1;
+  if (userLevel >= nivelNecessario) {
+    localStorage.setItem('selectedBanner', src);
+    updateHeaderBanner();
+    alert('Banner ativado com sucesso!');
+  } else {
+    alert(`Você precisa estar no nível ${nivelNecessario} para usar este banner.`);
+  }
+}
 
 updateUI();
 

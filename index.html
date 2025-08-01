@@ -15,10 +15,13 @@
   Uma nova versão está disponível. <button onclick="updateSite()">Atualizar</button>
 </div>
 
+
   <!-- Cabeçalho -->
 <div class="header">
     <div class="right">
+       <img id="profileImage" src="img/default-avatar.png" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 10px;">
     <span id="userName" class="user-name">Usuário</span>
+    <button onclick="limparLocalStorage()">Limpar Dados</button>
   </div>
   <div class="left">
     <span class="menu-icon">⋮</span>
@@ -28,6 +31,7 @@
 <br>
 <div class="tabs">
     <button onclick="showTab('rotina')">Rotina</button>
+    <button onclick="showTab('galeria')">Galeria</button>
     <button onclick="showTab('perfil')">Perfil</button>
   </div>
 
@@ -45,7 +49,7 @@
 
   <!-- Conteúdo: PERFIL -->
   <div id="perfil" class="tab-content" style="display: none;">
-    <h2>👤 Meu Perfil</h2>
+    <h2>Meu Perfil</h2>
     <p>Nome atual: <strong id="perfilNomeExibido"></strong></p>
     <div class="name-input-group">
      <input type="text" id="nameInput" placeholder="Novo nome" />
@@ -68,6 +72,22 @@
       <p>XP: <span id="currentXp">0</span> / <span id="xpToNext">100</span></p>
      </div>
   </div>
+
+ <!-- Galeria -->
+<div id="galeria" class="tab-content" style="display: none;">
+  <h2>🎨 Galeria de Avatares</h2>
+  <div id="gallery" class="gallery">
+     <div id="avatar-section">
+    <h3>Avatares</h3>
+    <!-- Avatares serão inseridos aqui -->
+  </div>
+
+  <div id="banner-section">
+    <h3>Banners</h3>
+    <!-- Banners serão inseridos aqui -->
+  </div>
+  </div>
+</div>
 
   <script src="js/script.js"></script>
 

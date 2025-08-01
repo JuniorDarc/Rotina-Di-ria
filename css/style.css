@@ -18,18 +18,25 @@ body {
 
 /* ==== HEADER E ELEMENTOS ==== */
 .header {
+   background-color: #333; /* fundo cinza escuro */
+  background-size: cover;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+  /* mantenha seu estilo atual, só acrescente esses para o banner */
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 10px 15px;
-  background-color: #1a1a1a;
-  gap: 10px;
+  height: 175px; /* ou o que for melhor */
+  color: rgb(236, 235, 235); /* texto visível em fundo colorido */
+  
 }
 
 .header .user-name {
-  font-weight: bold;
-  font-size: 25px;
+  font-weight: inherit;
+  font-size: 35px;
   font-family: "Manufacturing Consent", system-ui;
 }
 
@@ -41,7 +48,7 @@ body {
 .header .tabs button {
   padding: 6px 14px;
   font-size: 14px;
-  background-color: #343535;
+  background-color: #1a1919;
   color: white;
   border: none;
   border-radius: 6px;
@@ -101,6 +108,10 @@ button {
 
 button:hover {
   background: #45a049;
+}
+
+.attribute button {
+  margin-top: 10px;
 }
 
 ul {
@@ -217,6 +228,80 @@ li span {
   margin-bottom: 16px;
   flex-wrap: wrap;
 }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.gallery-item {
+   display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
+#avatar-section, #banner-section {
+  margin-bottom: 30px;
+}
+
+.gallery-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item button {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: none;
+  background-color: #444;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.gallery-item button:hover {
+  background-color: #666;
+}
+
+.gallery-item img.banner-img {
+  width: 150px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+/* Estilo dos botões das tarefas */
+#taskList button {
+  margin-left: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Botão de completar */
+#taskList button:first-of-type {
+  background-color: #2ecc71;
+  color: white;
+}
+
+/* Botão de deletar */
+#taskList button:last-of-type {
+  background-color: #e74c3c;
+  color: white;
+}
+
+
 
 /* ==== RESPONSIVO ==== */
 @media (max-width: 768px) {
